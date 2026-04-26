@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — NEXUS</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">NEX<span>US</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="cart.html" class="icon-btn cart-icon">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <h1 class="page-title">Get in <span class="accent">Touch</span></h1>
+    <p class="page-subtitle">We'd love to hear from you. Send us a message!</p>
+
+    <div class="contact-grid">
+      <div class="contact-form">
+        <h3>Send a Message</h3>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Your full name" id="contactName"/>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="your@email.com" id="contactEmail"/>
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <select id="contactSubject">
+            <option>Order Support</option>
+            <option>Product Question</option>
+            <option>Returns & Refunds</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Write your message here..." id="contactMessage"></textarea>
+        </div>
+        <button class="btn-primary" onclick="submitContact()" style="width:100%;">
+          Send Message <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+
+      <div class="contact-info">
+        <div class="info-card">
+          <div class="info-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <h4>Email Us</h4>
+            <p>support@nexus.store</p>
+            <p>We reply within 24 hours.</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon"><i class="fas fa-phone"></i></div>
+          <div>
+            <h4>Call Us</h4>
+            <p>+1 (800) 123-4567</p>
+            <p>Mon–Fri, 9am–6pm EST</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <h4>Visit Us</h4>
+            <p>Istanbul, Turkey</p>
+            <p>Altınbaş University Campus</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon"><i class="fas fa-clock"></i></div>
+          <div>
+            <h4>Business Hours</h4>
+            <p>Mon–Fri: 9am – 6pm</p>
+            <p>Sat: 10am – 4pm</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom" style="border:none;">
+      <p>© 2026 NEXUS Tech Store. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/cart.js"></script>
+  <script>
+    function submitContact() {
+      const name = document.getElementById('contactName').value.trim();
+      const email = document.getElementById('contactEmail').value.trim();
+      const message = document.getElementById('contactMessage').value.trim();
+      if (!name || !email || !message) {
+        showToast('⚠ Please fill in all required fields.');
+        return;
+      }
+      showToast(`✓ Thanks ${name}! We'll get back to you soon.`);
+      document.getElementById('contactName').value = '';
+      document.getElementById('contactEmail').value = '';
+      document.getElementById('contactMessage').value = '';
+    }
+  </script>
+</body>
+</html>

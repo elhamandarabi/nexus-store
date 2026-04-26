@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products — NEXUS</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">NEX<span>US</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="products.html" class="active">Products</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="icon-btn" onclick="toggleSearch()"><i class="fas fa-search"></i></button>
+        <a href="cart.html" class="icon-btn cart-icon">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+      </div>
+    </div>
+    <div class="search-bar" id="searchBar">
+      <input type="text" placeholder="Search products..." id="searchInput" onkeyup="handleSearch(event)"/>
+      <button onclick="toggleSearch()"><i class="fas fa-times"></i></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <h1 class="page-title">All <span class="accent">Products</span></h1>
+    <p class="page-subtitle">Explore our full collection of premium tech gear.</p>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterProducts('All', this)">All</button>
+      <button class="filter-btn" onclick="filterProducts('Electronics', this)">Electronics</button>
+      <button class="filter-btn" onclick="filterProducts('Accessories', this)">Accessories</button>
+      <button class="filter-btn" onclick="filterProducts('Sale', this)">On Sale</button>
+    </div>
+
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom" style="border:none;">
+      <p>© 2026 NEXUS Tech Store. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/cart.js"></script>
+  <script>
+    let allProducts = [];
+
+    async function init() {
+      allProducts = await fetchProducts();
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get('cat');
+      const search = params.get('search');
+
+      if (search) {
+        const filtered = allProducts.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+        renderGrid(filtered);
+      } else if (cat) {
+        filterProducts(cat);
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.classList.toggle('active', b.textContent === cat);
+        });
+      } else {
+        renderGrid(allProducts);
+      }
+    }
+
+    function renderGrid(products) {
+      const grid = document.getElementById('productsGrid');
+      if (products.length === 0) {
+        grid.innerHTML = '<p style="color:var(--text2);grid-column:1/-1;text-align:center;padding:3rem">No products found.</p>';
+        return;
+      }
+      grid.innerHTML = products.map(renderProductCard).join('');
+    }
+
+    function filterProducts(filter, btn) {
+      if (btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      if (filter === 'All') renderGrid(allProducts);
+      else if (filter === 'Sale') renderGrid(allProducts.filter(p => p.badge === 'Sale'));
+      else renderGrid(allProducts.filter(p => p.category === filter));
+    }
+
+    init();
+  </script>
+</body>
+</html>

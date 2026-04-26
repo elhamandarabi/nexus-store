@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NEXUS — Premium Tech Store</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">NEX<span>US</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="pages/products.html">Products</a></li>
+        <li><a href="pages/about.html">About</a></li>
+        <li><a href="pages/contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="icon-btn" onclick="toggleSearch()"><i class="fas fa-search"></i></button>
+        <a href="pages/cart.html" class="icon-btn cart-icon">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+        <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+    <div class="search-bar" id="searchBar">
+      <input type="text" placeholder="Search products..." id="searchInput" onkeyup="handleSearch(event)"/>
+      <button onclick="toggleSearch()"><i class="fas fa-times"></i></button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-tag">NEW COLLECTION 2026</p>
+      <h1 class="hero-title">Tech That<br/><span class="accent">Defines</span> You</h1>
+      <p class="hero-sub">Discover premium electronics and accessories crafted for those who demand the best. Cutting-edge design meets uncompromising performance.</p>
+      <div class="hero-btns">
+        <a href="pages/products.html" class="btn-primary">Shop Now <i class="fas fa-arrow-right"></i></a>
+        <a href="pages/about.html" class="btn-ghost">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card floating">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80" alt="Featured Product"/>
+        <div class="hero-card-info">
+          <span>Featured Drop</span>
+          <strong>Phantom X Pro</strong>
+          <p>$299.99</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll"><span></span></div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="stats-grid">
+      <div class="stat-item"><h3>10K+</h3><p>Happy Customers</p></div>
+      <div class="stat-item"><h3>500+</h3><p>Products</p></div>
+      <div class="stat-item"><h3>98%</h3><p>Satisfaction Rate</p></div>
+      <div class="stat-item"><h3>24/7</h3><p>Support</p></div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="section" id="featured">
+    <div class="section-header">
+      <p class="section-tag">HANDPICKED FOR YOU</p>
+      <h2>Featured <span class="accent">Products</span></h2>
+    </div>
+    <div class="products-grid" id="featuredGrid"></div>
+    <div class="center-btn">
+      <a href="pages/products.html" class="btn-primary">View All Products <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="categories-section">
+    <div class="section-header">
+      <p class="section-tag">BROWSE BY CATEGORY</p>
+      <h2>Shop <span class="accent">Categories</span></h2>
+    </div>
+    <div class="categories-grid">
+      <div class="category-card" onclick="location.href='pages/products.html?cat=Electronics'">
+        <div class="cat-icon"><i class="fas fa-microchip"></i></div>
+        <h3>Electronics</h3>
+        <p>Headphones, monitors, keyboards & more</p>
+        <span class="cat-arrow"><i class="fas fa-arrow-right"></i></span>
+      </div>
+      <div class="category-card" onclick="location.href='pages/products.html?cat=Accessories'">
+        <div class="cat-icon"><i class="fas fa-plug"></i></div>
+        <h3>Accessories</h3>
+        <p>Stands, chargers, hubs & essentials</p>
+        <span class="cat-arrow"><i class="fas fa-arrow-right"></i></span>
+      </div>
+      <div class="category-card" onclick="location.href='pages/products.html'">
+        <div class="cat-icon"><i class="fas fa-bolt"></i></div>
+        <h3>New Arrivals</h3>
+        <p>The latest drops just landed</p>
+        <span class="cat-arrow"><i class="fas fa-arrow-right"></i></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER -->
+  <section class="promo-banner">
+    <div class="promo-content">
+      <p class="section-tag">LIMITED TIME</p>
+      <h2>Up to <span class="accent">40% Off</span> on Selected Items</h2>
+      <p>Don't miss out on our biggest sale of the season. Premium tech at prices you won't believe.</p>
+      <a href="pages/products.html" class="btn-primary">Grab the Deal <i class="fas fa-fire"></i></a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">NEX<span>US</span></a>
+        <p>Premium tech products for modern people. Quality you can feel.</p>
+        <div class="socials">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="pages/products.html">All Products</a></li>
+          <li><a href="pages/products.html?cat=Electronics">Electronics</a></li>
+          <li><a href="pages/products.html?cat=Accessories">Accessories</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="pages/about.html">About Us</a></li>
+          <li><a href="pages/contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><i class="fas fa-envelope"></i> support@nexus.store</li>
+          <li><i class="fas fa-phone"></i> +1 (800) 123-4567</li>
+          <li><i class="fas fa-map-marker-alt"></i> Istanbul, Turkey</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 NEXUS Tech Store. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    loadFeaturedProducts();
+  </script>
+</body>
+</html>

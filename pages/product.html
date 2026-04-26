@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product — NEXUS</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">NEX<span>US</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="icon-btn" onclick="toggleSearch()"><i class="fas fa-search"></i></button>
+        <a href="cart.html" class="icon-btn cart-icon">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+      </div>
+    </div>
+    <div class="search-bar" id="searchBar">
+      <input type="text" placeholder="Search products..." id="searchInput" onkeyup="handleSearch(event)"/>
+      <button onclick="toggleSearch()"><i class="fas fa-times"></i></button>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <p style="margin-bottom:2rem;"><a href="products.html" style="color:var(--text2);"><i class="fas fa-arrow-left"></i> Back to Products</a></p>
+    <div id="productDetail"></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/cart.js"></script>
+  <script>
+    async function loadProduct() {
+      const id = parseInt(new URLSearchParams(window.location.search).get('id'));
+      const products = await fetchProducts();
+      const p = products.find(x => x.id === id);
+      if (!p) { document.getElementById('productDetail').innerHTML = '<p>Product not found.</p>'; return; }
+
+      document.title = `${p.name} — NEXUS`;
+      const stars = '★'.repeat(Math.floor(p.rating)) + '☆'.repeat(5 - Math.floor(p.rating));
+      const oldPriceHtml = p.oldPrice ? `<span class="old-price" style="font-size:1.2rem;color:var(--text3);text-decoration:line-through;">$${p.oldPrice}</span>` : '';
+
+      document.getElementById('productDetail').innerHTML = `
+        <div class="product-detail">
+          <div class="detail-img">
+            <img src="${p.image}" alt="${p.name}"/>
+          </div>
+          <div class="detail-info">
+            ${p.badge ? `<span class="detail-badge">${p.badge}</span>` : ''}
+            <h1 class="detail-title">${p.name}</h1>
+            <div class="product-rating">
+              <span class="stars">${stars}</span>
+              <span class="rating-num">${p.rating} (${p.reviews} reviews)</span>
+            </div>
+            <div class="detail-price" style="display:flex;align-items:center;gap:1rem;">
+              <span style="font-family:var(--font-heading);font-size:2rem;color:var(--accent);font-weight:800;">$${p.price}</span>
+              ${oldPriceHtml}
+            </div>
+            <p class="detail-desc">${p.description}</p>
+            <p class="stock-info"><i class="fas fa-check-circle"></i> ${p.stock} in stock — ships in 1–3 days</p>
+            <div class="detail-actions">
+              <button class="btn-primary" onclick="addToCart(${p.id})">
+                <i class="fas fa-shopping-bag"></i> Add to Cart
+              </button>
+              <a href="cart.html" class="btn-ghost">View Cart</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    loadProduct();
+  </script>
+</body>
+</html>
